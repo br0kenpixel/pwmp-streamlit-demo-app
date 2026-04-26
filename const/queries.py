@@ -6,5 +6,4 @@ SELECT_MEASUREMENTS = \
 'SELECT temperature, humidity, battery, "when" FROM measurements' \
 ' LEFT JOIN statistics ON statistics.measurement = measurements.id' \
 ' WHERE node = :node AND "when" >= :cutoff' \
-' ORDER BY "when" ASC' \
-' LIMIT 2000;'
+' ORDER BY "when" ASC;'
