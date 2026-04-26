@@ -43,10 +43,10 @@ with st.container(border=True):
 
 # Cut the data frames in half
 if SELECTABLE_TIME_FRAMES[time_frame].days >= 7:
-    df = df.iloc[::2, :]
+    df = df.iloc[::4]
 
 # Display the amount of data points available
-st.text(f"Available data points: {len(df)}", help='This amount may be reduced up to 50% if the selected time frame is >= 1 week.')
+st.text(f"Available data points: {len(df)}", help='This amount may be reduced up to 25% if the selected time frame is >= 1 week.')
 
 # Temperature & Humidity graphs
 st.line_chart(df, height=250, x="when", y="temperature", x_label="Date&Time", y_label="Temperature [°C]", color="green")
