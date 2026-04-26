@@ -21,6 +21,10 @@ time_frame = flex.selectbox("Time frame", SELECTABLE_TIME_FRAMES.keys(), help="P
 cutoff = datetime.now(timezone.utc) - SELECTABLE_TIME_FRAMES[time_frame]
 df = conn.query(SELECT_MEASUREMENTS, ttl="10m", params={"node": selected_node, "cutoff": cutoff})
 
+if df.empty:
+    st.warning("No data available for the selected node.")
+    st.stop()
+
 # Current values
 with st.container(border=True):
     latest_df = df.iloc[-1]
