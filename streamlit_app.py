@@ -17,7 +17,7 @@ flex = st.container(horizontal=True, horizontal_alignment="right")
 selected_node = flex.selectbox("Node", nodes, help="Pick a node")
 time_frame = flex.selectbox("Time frame", SELECTABLE_TIME_FRAMES.keys(), help="Pick a time frame")
 
-if selected_node not in nodes:
+if selected_node not in nodes["node_id"]:
     st.error("Invalid node selected")
     st.stop()
 
@@ -48,6 +48,10 @@ with st.container(border=True):
     cv_flex.metric("Temperature", f"{latest_df['temperature']:.2f} °C", delta=temperature_delta)
     cv_flex.metric("Humidity",    f"{latest_df['humidity']} %", delta=humidity_delta)
     cv_flex.metric("Battery", f"{latest_df['battery']:.02f} V", delta=battery_delta)
+
+if len(df) < 10:
+    st.warning("Not enough data points available for graphs")
+    st.stop()
 
 # Cut the data frames in half
 if SELECTABLE_TIME_FRAMES[time_frame].days >= 7:
