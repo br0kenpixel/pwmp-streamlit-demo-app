@@ -17,6 +17,10 @@ flex = st.container(horizontal=True, horizontal_alignment="right")
 selected_node = flex.selectbox("Node", nodes, help="Pick a node")
 time_frame = flex.selectbox("Time frame", SELECTABLE_TIME_FRAMES.keys(), help="Pick a time frame")
 
+if selected_node not in nodes:
+    st.error("Invalid node selected")
+    st.stop()
+
 # Query data
 cutoff = datetime.now(timezone.utc) - SELECTABLE_TIME_FRAMES[time_frame]
 df = conn.query(SELECT_MEASUREMENTS, ttl="10m", params={"node": selected_node, "cutoff": cutoff})
